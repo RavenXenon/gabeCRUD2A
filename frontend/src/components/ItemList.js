@@ -10,7 +10,7 @@ const ItemList = ({ onEdit, onDelete }) => {
 
     const fetchItems = async () => {
         try {
-            const response = await axios.get('http://localhost:8000/api/items/');
+            const response = await axios.get(`http://localhost:8000/api/items/`);
             setItems(response.data);
         } catch (error) {
             console.error('There was an error fetching the items!', error);
@@ -19,19 +19,62 @@ const ItemList = ({ onEdit, onDelete }) => {
 
     return (
         <div>
-            <h1>Items</h1>
-            <ul>
-                {items.map(item => (
-                    <li key={item.id}>
-                        {item.first_name} : {item.middle_name} : {item.last_name} : {item.date_of_birth} : {item.place_of_birth} : {item.sex} : {item.civil_status} : {item.height}m : {item.weight}kg : {item.blood_type} : {item.gsis_id_no} : {item.pagibig_id_no} : {item.philhealth_no} : {item.sss_no} : {item.tin_no} : {item.agency_employee_no} : {item.citizenship} : {item.residential_address} : {item.zip_code} : {item.permanent_address} : {item.telephone_no} : {item.mobile_no} : {item.email_address} : {item.fathers_name} : {item.mothers_name}
-                        <button onClick={() => onEdit(item)}>Edit</button>
-                        <button onClick={() => onDelete(item.id)}>Delete</button>
-                    </li>
-                ))}
-            </ul>
-        </div>
-    );
+        <h1>Items</h1>
+        <ul>
+            {items.map(item => (
+                <li key={item.id}>
+                    {item.first_name} {item.middle_name} {item.last_name}
+                    <br />
+                    Address: {item.address}
+                    <br />
+                    Permanent Address: {item.permanent_address}
+                    <br />
+                    Zip Code: {item.zip_code}
+                    <br />
+                    Email: {item.email}
+                    <br />
+                    Phone: {item.phone}
+                    <br />
+                    Date of Birth: {item.date_of_birth}
+                    <br />
+                    Place of Birth: {item.place_of_birth}
+                    <br />
+                    Civil Status: {item.civil_status}
+                    <br />
+                    Sex: {item.sex === 'M' ? 'Male' : 'Female'}
+                    <br />
+                    Height: {item.height}
+                    <br />
+                    Weight: {item.weight}
+                    <br />
+                    Blood Type: {item.bloodtype}
+                    <br />
+                    Citizenship: {item.citizenship}
+                    <br />
+                    GSIS: {item.gsis}
+                    <br />
+                    Pag-Ibig No: {item.pag_ibig_no}
+                    <br />
+                    PhilHealth: {item.philhealth}
+                    <br />
+                    SSS: {item.sss}
+                    <br />
+                    TIN: {item.tin}
+                    <br />
+                    Agency Employee No: {item.agency_employee_no}
+                    <br />
+                    Occupation: {item.occupation}
+                    <br />
+                    Employee Business: {item.employee_business}
+                    <br />
+                    Business Address: {item.business_address}
+                    <br />
+                    <button onClick={() => onEdit(item)}>Edit</button>
+                    <button onClick={() => onDelete(item.id)}>Delete</button>
+                </li>
+            ))}
+        </ul>
+    </div>
+);
 };
-
 export default ItemList;
-

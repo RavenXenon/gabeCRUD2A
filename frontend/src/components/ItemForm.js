@@ -2,74 +2,95 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
 const ItemForm = ({ item, onSuccess }) => {
-    const [first_name, setFirst_name] = useState('');
-    const [middle_name, setMiddle_name] = useState('');
-    const [last_name, setLast_name] = useState('');
-    const [date_of_birth, setDate_of_birth] = useState('');
-    const [place_of_birth, setPlace_of_birth] = useState('');
+    const [firstName, setFirstName] = useState('');
+    const [middleName, setMiddleName] = useState('');
+    const [lastName, setLastName] = useState('');
+    const [address, setAddress] = useState('');
+    const [permanentAddress, setPermanentAddress] = useState('');
+    const [zipCode, setZipCode] = useState('');
+    const [email, setEmail] = useState('');
+    const [phone, setPhone] = useState('');
+    const [dateOfBirth, setDateOfBirth] = useState('');
+    const [placeOfBirth, setPlaceOfBirth] = useState('');
+    const [civilStatus, setCivilStatus] = useState('');
     const [sex, setSex] = useState('');
-    const [civil_status, setCivil_status] = useState('');
     const [height, setHeight] = useState('');
     const [weight, setWeight] = useState('');
-    const [blood_type, setBlood_type] = useState('');
-    const [gsis_id_no, setGsis_id_no] = useState('');
-    const [pagibig_id_no, setPagibig_id_no] = useState('');
-    const [philhealth_no, setPhilhealth_no] = useState('');
-    const [sss_no, setSss_no] = useState('');
-    const [tin_no, setTin_no] = useState('');
-    const [agency_employee_no, setAgency_employee_no] = useState('');
+    const [bloodtype, setBloodtype] = useState('');
     const [citizenship, setCitizenship] = useState('');
-    const [residential_address, setResidential_address] = useState('');
-    const [zip_code, setZip_code] = useState('');
-    const [permanent_address, setPermanent_address] = useState('');
-    const [telephone_no, setTelephone_no] = useState('');
-    const [mobile_no, setMobile_no] = useState('');
-    const [email_address, setEmail_address] = useState('');
-    const [fathers_name, setFathers_name] = useState('');
-    const [mothers_name, setMothers_name] = useState('');
+    const [gsis, setGsis] = useState('');
+    const [pagIbigNo, setPagIbigNo] = useState('');
+    const [philhealth, setPhilhealth] = useState('');
+    const [sss, setSss] = useState('');
+    const [tin, setTin] = useState('');
+    const [agencyEmployeeNo, setAgencyEmployeeNo] = useState('');
+    const [occupation, setOccupation] = useState('');
+    const [employeeBusiness, setEmployeeBusiness] = useState('');
+    const [businessAddress, setBusinessAddress] = useState('');
 
     useEffect(() => {
         if (item) {
-            setFirst_name(item.first_name);
-            setMiddle_name(item.middle_name);
-            setLast_name(item.last_name);
-            setDate_of_birth(item.date_of_birth);
-            setPlace_of_birth(item.place_of_birth);
+            setFirstName(item.first_name);
+            setMiddleName(item.middle_name);
+            setLastName(item.last_name);
+            setAddress(item.address);
+            setPermanentAddress(item.permanent_address);
+            setZipCode(item.zip_code);
+            setEmail(item.email);
+            setPhone(item.phone);
+            setDateOfBirth(item.date_of_birth);
+            setPlaceOfBirth(item.place_of_birth);
+            setCivilStatus(item.civil_status);
             setSex(item.sex);
-            setCivil_status(item.civil_status);
             setHeight(item.height);
             setWeight(item.weight);
-            setBlood_type(item.blood_type);
-            setGsis_id_no(item.gsis_id_no);
-            setPagibig_id_no(item.pagibig_id_no);
-            setPhilhealth_no(item.philhealth_no);
-            setSss_no(item.sss_no);
-            setTin_no(item.tin_no);
-            setAgency_employee_no(item.agency_employee_no);
+            setBloodtype(item.bloodtype);
             setCitizenship(item.citizenship);
-            setResidential_address(item.residential_address);
-            setZip_code(item.zip_code);
-            setPermanent_address(item.permanent_address);
-            setTelephone_no(item.telephone_no);
-            setMobile_no(item.mobile_no);
-            setEmail_address(item.email_address);
-            setFathers_name(item.fathers_name);
-            setMothers_name(item.mothers_name);
+            setGsis(item.gsis);
+            setPagIbigNo(item.pag_ibig_no);
+            setPhilhealth(item.philhealth);
+            setSss(item.sss);
+            setTin(item.tin);
+            setAgencyEmployeeNo(item.agency_employee_no);
+            setOccupation(item.occupation);
+            setEmployeeBusiness(item.employee_business);
+            setBusinessAddress(item.business_address);
         }
     }, [item]);
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-        const data = {
-            first_name, middle_name, last_name, date_of_birth, place_of_birth, sex, civil_status, height, weight, blood_type,
-            gsis_id_no, pagibig_id_no, philhealth_no, sss_no, tin_no, agency_employee_no, citizenship, residential_address,
-            zip_code, permanent_address, telephone_no, mobile_no, email_address, fathers_name, mothers_name
-        };
+        const data = { first_name: firstName,
+            middle_name: middleName,
+            last_name: lastName,
+            address,
+            permanent_address: permanentAddress,
+            zip_code: zipCode,
+            email,
+            phone,
+            date_of_birth: dateOfBirth,
+            place_of_birth: placeOfBirth,
+            civil_status: civilStatus,
+            sex,
+            height,
+            weight,
+            bloodtype,
+            citizenship,
+            gsis,
+            pag_ibig_no: pagIbigNo,
+            philhealth,
+            sss,
+            tin,
+            agency_employee_no: agencyEmployeeNo,
+            occupation,
+            employee_business: employeeBusiness,
+            business_address: businessAddress,};
+        
         try {
             if (item) {
                 await axios.put(`http://localhost:8000/api/items/${item.id}/`, data);
             } else {
-                await axios.post('http://localhost:8000/api/items/', data);
+                await axios.post(`http://localhost:8000/api/items/`, data);
             }
             onSuccess();
         } catch (error) {
@@ -79,111 +100,113 @@ const ItemForm = ({ item, onSuccess }) => {
 
     return (
         <form onSubmit={handleSubmit}>
-            <div>
-                <label>First Name</label>
-                <input type='text' value={first_name} onChange={(e) => setFirst_name(e.target.value)} />
-            </div>
-            <div>
-                <label>Middle Name</label>
-                <input type='text' value={middle_name} onChange={(e) => setMiddle_name(e.target.value)} />
-            </div>
-            <div>
-                <label>Last Name</label>
-                <input type='text' value={last_name} onChange={(e) => setLast_name(e.target.value)} />
-            </div>
-            <div>
-                <label>Date of Birth</label>
-                <input type='date' value={date_of_birth} onChange={(e) => setDate_of_birth(e.target.value)} />
-            </div>
-            <div>
-                <label>Place of Birth</label>
-                <input type='text' value={place_of_birth} onChange={(e) => setPlace_of_birth(e.target.value)} />
-            </div>
-            <div>
-                <label>Sex</label>
-                <input type='text' value={sex} onChange={(e) => setSex(e.target.value)} />
-            </div>
-            <div>
-                <label>Civil Status</label>
-                <input type='text' value={civil_status} onChange={(e) => setCivil_status(e.target.value)} />
-            </div>
-            <div>
-                <label>Height (m)</label>
-                <input type='number' step="0.01" value={height} onChange={(e) => setHeight(e.target.value)} />
-            </div>
-            <div>
-                <label>Weight (kg)</label>
-                <input type='number' value={weight} onChange={(e) => setWeight(e.target.value)} />
-            </div>
-            <div>
-                <label>Blood Type</label>
-                <input type='text' value={blood_type} onChange={(e) => setBlood_type(e.target.value)} />
-            </div>
-            <div>
-                <label>GSIS ID No.</label>
-                <input type='text' value={gsis_id_no} onChange={(e) => setGsis_id_no(e.target.value)} />
-            </div>
-            <div>
-                <label>PAG-IBIG ID No.</label>
-                <input type='text' value={pagibig_id_no} onChange={(e) => setPagibig_id_no(e.target.value)} />
-            </div>
-            <div>
-                <label>Philhealth No.</label>
-                <input type='text' value={philhealth_no} onChange={(e) => setPhilhealth_no(e.target.value)} />
-            </div>
-            <div>
-                <label>SSS No.</label>
-                <input type='text' value={sss_no} onChange={(e) => setSss_no(e.target.value)} />
-            </div>
-            <div>
-                <label>TIN No.</label>
-                <input type='text' value={tin_no} onChange={(e) => setTin_no(e.target.value)} />
-            </div>
-            <div>
-                <label>Agency Employee No.</label>
-                <input type='text' value={agency_employee_no} onChange={(e) => setAgency_employee_no(e.target.value)} />
-            </div>
-            <div>
-                <label>Citizenship</label>
-                <input type='text' value={citizenship} onChange={(e) => setCitizenship(e.target.value)} />
-            </div>
-            <div>
-                <label>Residential Address</label>
-                <input type='text' value={residential_address} onChange={(e) => setResidential_address(e.target.value)} />
-            </div>
-            <div>
-                <label>ZIP Code</label>
-                <input type='text' value={zip_code} onChange={(e) => setZip_code(e.target.value)} />
-            </div>
-            <div>
-                <label>Permanent Address</label>
-                <input type='text' value={permanent_address} onChange={(e) => setPermanent_address(e.target.value)} />
-            </div>
-            <div>
-                <label>Telephone No.</label>
-                <input type='text' value={telephone_no} onChange={(e) => setTelephone_no(e.target.value)} />
-            </div>
-            <div>
-                <label>Mobile No.</label>
-                <input type='text' value={mobile_no} onChange={(e) => setMobile_no(e.target.value)} />
-            </div>
-            <div>
-                <label>Email Address</label>
-                <input type='email' value={email_address} onChange={(e) => setEmail_address(e.target.value)} />
-            </div>
-            <div>
-                <label>Father's Name</label>
-                <input type='text' value={fathers_name} onChange={(e) => setFathers_name(e.target.value)} />
-            </div>
-            <div>
-                <label>Mother's Name</label>
-                <input type='text' value={mothers_name} onChange={(e) => setMothers_name(e.target.value)} />
-            </div>
-            <button type='submit'>Submit</button>
-        </form>
-    );
+        <div>
+            <label>First Name</label>
+            <input type="text" value={firstName} onChange={(e) => setFirstName(e.target.value)} />
+        </div>
+        <div>
+            <label>Middle Name</label>
+            <input type="text" value={middleName} onChange={(e) => setMiddleName(e.target.value)} />
+        </div>
+        <div>
+            <label>Last Name</label>
+            <input type="text" value={lastName} onChange={(e) => setLastName(e.target.value)} />
+        </div>
+        <div>
+            <label>Address</label>
+            <input type="text" value={address} onChange={(e) => setAddress(e.target.value)} />
+        </div>
+        <div>
+            <label>Permanent Address</label>
+            <input type="text" value={permanentAddress} onChange={(e) => setPermanentAddress(e.target.value)} />
+        </div>
+        <div>
+            <label>Zip Code</label>
+            <input type="text" value={zipCode} onChange={(e) => setZipCode(e.target.value)} />
+        </div>
+        <div>
+            <label>Email</label>
+            <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
+        </div>
+        <div>
+            <label>Phone</label>
+            <input type="tel" value={phone} onChange={(e) => setPhone(e.target.value)} />
+        </div>
+        <div>
+            <label>Date of Birth</label>
+            <input type="date" value={dateOfBirth} onChange={(e) => setDateOfBirth(e.target.value)} />
+        </div>
+        <div>
+            <label>Place of Birth</label>
+            <input type="text" value={placeOfBirth} onChange={(e) => setPlaceOfBirth(e.target.value)} />
+        </div>
+        <div>
+            <label>Civil Status</label>
+            <input type="text" value={civilStatus} onChange={(e) => setCivilStatus(e.target.value)} />
+        </div>
+        <div>
+            <label>Sex</label>
+            <select value={sex} onChange={(e) => setSex(e.target.value)}>
+                <option value="">Select...</option>
+                <option value="M">Male</option>
+                <option value="F">Female</option>
+            </select>
+        </div>
+        <div>
+            <label>Height</label>
+            <input type="text" value={height} onChange={(e) => setHeight(e.target.value)} />
+        </div>
+        <div>
+            <label>Weight</label>
+            <input type="text" value={weight} onChange={(e) => setWeight(e.target.value)} />
+        </div>
+        <div>
+            <label>Blood Type</label>
+            <input type="text" value={bloodtype} onChange={(e) => setBloodtype(e.target.value)} />
+        </div>
+        <div>
+            <label>Citizenship</label>
+            <input type="text" value={citizenship} onChange={(e) => setCitizenship(e.target.value)} />
+        </div>
+        <div>
+            <label>GSIS No.</label>
+            <input type="text" value={gsis} onChange={(e) => setGsis(e.target.value)} />
+        </div>
+        <div>
+            <label>Pag-Ibig No.</label>
+            <input type="text" value={pagIbigNo} onChange={(e) => setPagIbigNo(e.target.value)} />
+        </div>
+        <div>
+            <label>PhilHealth No.</label>
+            <input type="text" value={philhealth} onChange={(e) => setPhilhealth(e.target.value)} />
+        </div>
+        <div>
+            <label>SSS No.</label>
+            <input type="text" value={sss} onChange={(e) => setSss(e.target.value)} />
+        </div>
+        <div>
+            <label>TIN No.</label>
+            <input type="text" value={tin} onChange={(e) => setTin(e.target.value)} />
+        </div>
+        <div>
+            <label>Agency Employee No.</label>
+            <input type="text" value={agencyEmployeeNo} onChange={(e) => setAgencyEmployeeNo(e.target.value)} />
+        </div>
+        <div>
+            <label>Occupation</label>
+            <input type="text" value={occupation} onChange={(e) => setOccupation(e.target.value)} />
+        </div>
+        <div>
+            <label>Employee Business</label>
+            <input type="text" value={employeeBusiness} onChange={(e) => setEmployeeBusiness(e.target.value)} />
+        </div>
+        <div>
+            <label>Business Address</label>
+            <input type="text" value={businessAddress} onChange={(e) => setBusinessAddress(e.target.value)} />
+        </div>
+        <button type="submit">Submit</button>
+    </form>
+);
 };
 
 export default ItemForm;
-
-
